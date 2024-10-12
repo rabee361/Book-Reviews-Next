@@ -1,4 +1,4 @@
-'use client'
+
 // import axios from 'axios'
 import React from 'react'
 // import { useQuery } from '@tanstack/react-query'
@@ -7,9 +7,10 @@ import {  motion } from 'framer-motion'
 import Image from 'next/image'
 import angels from "@/assets/images/angels.jpg"
 import { FaStar } from "react-icons/fa";
+import fetchGenres from '@/data-resource/actions'
 
 
-function Featured() {
+async function Featured() {
     // const [selectedId, setSelectedId] = useState(null)
 
     // const {data,isLoading,error} = useQuery('books' , fetchBooks)
@@ -17,21 +18,17 @@ function Featured() {
     // if (isLoading) return <div>Loading</div>
     // if (error) return <div>{error.message}</div>
 
+    const genres = await fetchGenres();
     
 
   return (
     <div className="flex flex-col items-center justify-center w-full overflow-hidden py-3 text-white">
         <div className="text-center flex gap-5 mb-5">
-            <h1 className="text-md font-serif hover:text-gray-400 ease-linear duration-150">New</h1>
-            <h1 className="text-md font-serif">Horror</h1>
-            <h1 className="text-md font-serif">Comedy</h1>
-            <h1 className="text-md font-serif">SciFy</h1>
-            <h1 className="text-md font-serif">Fantast</h1>
-            <h1 className="text-md font-serif">Drama</h1>
-            <h1 className="text-md font-serif">Fiction</h1>
-            <h1 className="text-md font-serif">Dramadey</h1>
-            <h1 className="text-md font-serif">Thriller</h1>
-            <h1 className="text-md font-serif">see more</h1>
+            {
+                genres.map((genre) => (
+                    <h1 key={genre.id} className="text-md font-serif hover:text-gray-400 ease-linear duration-150">{genre.name}</h1>
+                ))
+            }
         </div>
         <div className='grid grid-cols-7 grid-rows-2 gap-x-10 gap-y-5'>
             <div className='p-2 flex flex-col items-center justify-center'>
